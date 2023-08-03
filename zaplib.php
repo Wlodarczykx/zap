@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Singleton for loading and storing zaps
+ */
 class Zap 
 {
 	private static Zap $instance;
@@ -16,7 +19,7 @@ class Zap
 	public static function instance(): Zap
 	{
 		if (!isset(self::$instance)) {
-			self::$instance = new Zap;
+			self::$instance = new Zap();
 		}
 		
 		return self::$instance;
@@ -43,7 +46,7 @@ class Zap
 		return str_replace('%PX', '.', $where);
 	}
 		
-	public function storeZap(string $url, int $zapperid, mysqli $db)
+	public function storeZap(string $url, int $zapperid, mysqli $db): void
 	{
 		$this->db->query(sprintf("INSERT INTO zaps (id, url, userid) VALUES(NULL, '%s', %d)", mysqli_real_escape_string($db, $url), intval($zapperid)));
 	}
@@ -96,8 +99,6 @@ class Zap
 		if ($row = mysqli_fetch_assoc($result)) { 
 			// close the database connection; we are leaving the page
 			$this->db->close();
-			
-			   var_dump($row);
 			header(sprintf("Location: %s", $row['url']));
 			exit;
 		}
