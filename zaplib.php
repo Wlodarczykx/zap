@@ -9,7 +9,7 @@ class Zap
 	
 	private mysqli $db;
 	
-	public function setDb(mysqli $db) 
+	public function setDb(mysqli $db): void
 	{
 		$this->db = $db;
 	}
