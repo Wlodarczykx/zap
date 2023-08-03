@@ -46,7 +46,7 @@ class Zap
 		return str_replace('%PX', '.', $where);
 	}
 		
-	public function storeZap(string $url, int $zapperid, mysqli $db): void
+	public function store(string $url, int $zapperid, mysqli $db): void
 	{
 		$this->db->query(sprintf("INSERT INTO zaps (id, url, userid) VALUES(NULL, '%s', %d)", mysqli_real_escape_string($db, $url), intval($zapperid)));
 	}
@@ -77,7 +77,7 @@ class Zap
 		return ob_get_clean();
 	}
 		
-	public function getZapListingHtml(): string
+	public function getListingHtml(): string
 	{
 		$result = $this->db->query("SELECT z.id, z.url, zn.name, z.timestamp FROM zaps z, zappers zn WHERE z.userid = zn.id ORDER BY timestamp DESC");
 		$lis = array();
@@ -92,7 +92,7 @@ class Zap
 	/**
 	 * Issues a header redirect.
 	 */
-	public function loadZap(): void
+	public function load(): void
 	{	
 		$result = $this->db->query("SELECT url FROM zaps ORDER BY timestamp DESC LIMIT 1");
 		

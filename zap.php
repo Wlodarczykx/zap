@@ -19,12 +19,12 @@ if (array_key_exists('submit', $_POST)) {
 }
 
 if ($who && false !== $where) {
-	$zap->storeZap($where, $who);
+	$zap->store($where, $who);
 }
 
 if ($who && !$listing) {
 	// the following call issues a header redirect:
-	$zap->loadZap();
+	$zap->load();
 }
 
 // OR:
@@ -39,7 +39,7 @@ if ($who && !$listing) {
 	<?php echo (false === $who ? $zap->getUserFormHtml() : '')?>
 	Zaps:<br>
 	<br>
-	<?php echo $zap->getZapListingHtml();?>
+	<?php echo $zap->getListingHtml();?>
 </body>
 </html>
 
