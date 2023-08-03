@@ -25,16 +25,16 @@ class Zap
 		return self::$instance;
 	}
 		
-	public function storeZapperInCookie(int $zapperid): int
+	public function storeZapperInCookie(int $zapperId): int
 	{
 		$retval = null;
 
-		if (null !== $zapperid) {
-			$result = $this->db->query(sprintf("SELECT * FROM zappers WHERE id = %d", intval($zapperid)));
+		if (null !== $zapperId) {
+			$result = $this->db->query(sprintf("SELECT * FROM zappers WHERE id = %d", intval($zapperId)));
 
 			if ($row = mysqli_fetch_assoc($result)) {
-				setcookie('zapper', $zapperid, time() + 60 * 60 * 24 * 365, '/');
-				$retval = $zapperid;
+				setcookie('zapper', $zapperId, time() + 60 * 60 * 24 * 365, '/');
+				$retval = $zapperId;
 			}
 		}
 
@@ -46,9 +46,9 @@ class Zap
 		return str_replace('%PX', '.', $where);
 	}
 		
-	public function store(string $url, int $zapperid, mysqli $db): void
+	public function store(string $url, int $zapperId, mysqli $db): void
 	{
-		$this->db->query(sprintf("INSERT INTO zaps (id, url, userid) VALUES(NULL, '%s', %d)", mysqli_real_escape_string($db, $url), intval($zapperid)));
+		$this->db->query(sprintf("INSERT INTO zaps (id, url, userid) VALUES(NULL, '%s', %d)", mysqli_real_escape_string($this->db, $url), intval($zapperId)));
 	}
 		
 	public function getUserFormHtml(): string
