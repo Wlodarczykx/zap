@@ -46,7 +46,7 @@ class Zap
 		return str_replace('%PX', '.', $where);
 	}
 		
-	public function store(string $url, int $zapperId, mysqli $db): void
+	public function save(string $url, int $zapperId): void
 	{
 		$this->db->query(sprintf("INSERT INTO zaps (id, url, userid) VALUES(NULL, '%s', %d)", mysqli_real_escape_string($this->db, $url), intval($zapperId)));
 	}
@@ -57,7 +57,7 @@ class Zap
 
 		$result = $this->db->query("SELECT id, name FROM zappers ORDER BY name ASC");
 
-		while($row = mysqli_fetch_assoc($result))
+		while ($row = mysqli_fetch_assoc($result))
 		{
 			$zappers[] = array('id' => $row['id'], 'name' => $row['name']);
 		}
@@ -92,7 +92,7 @@ class Zap
 	/**
 	 * Issues a header redirect.
 	 */
-	public function load(): void
+	public function open(): void
 	{	
 		$result = $this->db->query("SELECT url FROM zaps ORDER BY timestamp DESC LIMIT 1");
 		

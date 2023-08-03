@@ -10,21 +10,20 @@ $zap = Zap::instance();
 $zap->setDb($db);
 
 // read querystring 
-$where = (isset($_GET['r']) ? $zap->decodePeriods($_GET['r']) : false);
+$where = isset($_GET['r']) ? $zap->decodePeriods($_GET['r']) : false;
 $who = !array_key_exists('zapper', $_COOKIE) ? false : intval($_COOKIE['zapper']);
-$listing = isset($_GET['l']);
 
 if (array_key_exists('submit', $_POST)) {
 	$who = $zap->storeZapperInCookie($_POST['zapper']);
 }
 
 if ($who && false !== $where) {
-	$zap->store($where, $who);
+	$zap->save($where, $who);
 }
 
-if ($who && !$listing) {
+if ($who && !isset($_GET['l'])) {
 	// the following call issues a header redirect:
-	$zap->load();
+	$zap->open();
 }
 
 // OR:
