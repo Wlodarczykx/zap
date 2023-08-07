@@ -1,9 +1,24 @@
 <html>
 <head>
-	<title>Leeuwenlef zap</title>
+	<title>Get zap</title>
 </head>
-<body>
-<p>Drag to bookmarks: <a href="javascript:{location.href='http://192.168.2.138/zap/zap.php?r=' + encodeURIComponent(location.href).replace(/\./g, '%PX')};void(0);" title="save to zap">save to zap</a> - <a href="http://192.168.2.138/zap/zap.php">open zap</a></a></p>
+<body onload="load()">
+<p>Drag to bookmarks: <a href="#" title="save to zap">save to zap</a> - <a href="#">open zap</a></a></p>
 
+<script type="text/javascript">
+	const hostname = '192.168.2.115',
+	      hrefs = [
+			`javascript:{location.href='http://${hostname}/zap/zap.php?r=' + encodeURIComponent(location.href).replace(/\./g, '%PX')};void(0);`,
+			`http://${hostname}/zap/zap.php`
+		  ];
+		  
+	function load() {
+		var anchors = document.querySelectorAll('a');
+		
+		for (var i=0; i < anchors.length; i++) {
+			anchors[i].href = hrefs.shift();
+		}
+	}	
+</script>
 </body>
 </html>
