@@ -3,13 +3,12 @@
 	<title>Get zap</title>
 </head>
 <body onload="load()">
-<p>Drag to bookmarks: <a href="#" title="save to zap">save to zap</a> - <a href="#">open zap</a></a></p>
+<p>Drag to bookmarks: <a href="#" title="save to zap">save to zap</a> - <a href="#">open zap</a></p>
 
 <script type="text/javascript">
-	const hostname = '192.168.2.115',
-	      hrefs = [
-			`javascript:{location.href='http://${hostname}/zap/zap.php?r=' + encodeURIComponent(location.href).replace(/\./g, '%PX')};void(0);`,
-			`http://${hostname}/zap/zap.php`
+	const hrefs = [
+			`javascript:{location.href='http://${location.hostname}/zap/zap.php?r=' + encodeURIComponent(location.href).replace(/\./g, '%PX')};void(0);`,
+			`http://${location.hostname}/zap/zap.php`
 		  ];
 		  
 	function load() {
